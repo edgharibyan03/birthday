@@ -1,0 +1,203 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-sans: 'Noto Sans Armenian', system-ui, sans-serif;
+  --font-serif: 'Noto Serif Armenian', Georgia, serif;
+
+  --color-burgundy-950: #1a060c;
+  --color-burgundy-900: #2d0a14;
+  --color-burgundy-800: #4a0e1f;
+  --color-burgundy-700: #6b152e;
+  --color-rose-soft: #e8a0b0;
+  --color-rose-mid: #d4788a;
+  --color-rose-deep: #b85a6e;
+  --color-cream: #fff8f0;
+  --color-cream-soft: #f5e6d3;
+  --color-gold: #c9a84c;
+  --color-gold-light: #e8d5a3;
+  --color-gold-pale: #f5ead0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+  font-family: var(--font-sans);
+  background: var(--color-burgundy-950);
+  color: var(--color-cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: color-mix(in srgb, var(--color-rose-mid) 45%, transparent);
+  color: var(--color-cream);
+}
+
+/* Ambient background layers */
+.bg-romance {
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 10%, rgba(107, 21, 46, 0.7) 0%, transparent 55%),
+    radial-gradient(ellipse 70% 50% at 85% 20%, rgba(180, 90, 110, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 90% 70% at 50% 90%, rgba(74, 14, 31, 0.9) 0%, transparent 60%),
+    radial-gradient(ellipse 50% 40% at 70% 60%, rgba(201, 168, 76, 0.08) 0%, transparent 45%),
+    linear-gradient(165deg, #1a060c 0%, #2d0a14 35%, #4a0e1f 70%, #2d0a14 100%);
+}
+
+.gold-text {
+  background: linear-gradient(
+    135deg,
+    var(--color-gold-pale) 0%,
+    var(--color-gold) 40%,
+    var(--color-gold-light) 70%,
+    var(--color-gold) 100%
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.btn-gift {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  background: linear-gradient(
+    135deg,
+    rgba(201, 168, 76, 0.25) 0%,
+    rgba(212, 120, 138, 0.35) 50%,
+    rgba(201, 168, 76, 0.2) 100%
+  );
+  border: 1px solid rgba(232, 213, 163, 0.45);
+  box-shadow:
+    0 0 40px rgba(201, 168, 76, 0.15),
+    inset 0 1px 0 rgba(255, 248, 240, 0.15);
+  transition:
+    transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.4s ease,
+    border-color 0.4s ease;
+}
+
+.btn-gift::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 248, 240, 0.18) 50%,
+    transparent 70%
+  );
+  transform: translateX(-120%);
+  transition: transform 0.7s ease;
+}
+
+.btn-gift:hover {
+  transform: translateY(-2px) scale(1.02);
+  border-color: rgba(232, 213, 163, 0.75);
+  box-shadow:
+    0 0 55px rgba(201, 168, 76, 0.28),
+    0 12px 40px rgba(45, 10, 20, 0.4),
+    inset 0 1px 0 rgba(255, 248, 240, 0.25);
+}
+
+.btn-gift:hover::before {
+  transform: translateX(120%);
+}
+
+.btn-gift:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Soft vignette overlay */
+.vignette::after {
+  content: '';
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse 70% 70% at 50% 50%,
+    transparent 40%,
+    rgba(26, 6, 12, 0.45) 100%
+  );
+}
+
+/* Heart pulse for finale */
+@keyframes heart-glow {
+  0%,
+  100% {
+    filter: drop-shadow(0 0 20px rgba(212, 120, 138, 0.5));
+    transform: scale(1);
+  }
+  50% {
+    filter: drop-shadow(0 0 45px rgba(232, 160, 176, 0.8));
+    transform: scale(1.06);
+  }
+}
+
+.heart-pulse {
+  animation: heart-glow 2.8s ease-in-out infinite;
+}
+
+@keyframes float-drift {
+  0% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  92% {
+    opacity: 0.85;
+  }
+  100% {
+    transform: translateY(-110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+@keyframes petal-fall {
+  0% {
+    transform: translateY(-10vh) translateX(0) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateY(110vh) translateX(40px) rotate(420deg);
+    opacity: 0;
+  }
+}
+
+@keyframes twinkle {
+  0%,
+  100% {
+    opacity: 0.15;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.2);
+  }
+}
+
+.particle-twinkle {
+  animation: twinkle var(--dur, 3s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
+}
+
+.message-ornament {
+  width: min(180px, 40vw);
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    var(--color-gold-light),
+    transparent
+  );
+}
